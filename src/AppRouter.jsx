@@ -1,24 +1,19 @@
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route,Routes,Navigate  } from 'react-router-dom';
 import Login from './componentes/login/Login';
-import NuevoUsuario from './componentes/registroUsuario/nuevoUsuario';
+import NuevoUsuario from './componentes/registroUsuario/NuevoUsuario';
 import Dashboard from './componentes/dashboard/Dashboard';
 
 export const AppRouter = () => {
   return (
-    <Switch>
-      <Route exact path="/">
-        <Login />
-      </Route>
-      <Route path="/nuevo-usuario">
-        <NuevoUsuario />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard />
-      </Route>
-      {/* Manejo de rutas no encontradas (opcional) */}
-      <Route>
-        <p>Ruta no encontrada</p>
-      </Route>
-    </Switch>
+   
+    <Routes>
+      <Route path="/" element={ <Login />} />
+      <Route path="/nuevo-usuario" element={ <NuevoUsuario />} />
+      <Route path="/dashboard" element={ <Dashboard />} />
+      <Route path="*" element={ <Navigate to="/" />} />
+      <Route path="/*" element={<Navigate to="/" />} />
+
+    </Routes>
+  
   )
 }

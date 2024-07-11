@@ -1,7 +1,9 @@
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NuevoUsuario = () => {
+  const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
@@ -14,26 +16,30 @@ const NuevoUsuario = () => {
       return;
     }
 
-    // Aquí puedes implementar la lógica para registrar al nuevo usuario
-    // Por ejemplo, enviar los datos a una API, almacenar en localStorage, etc.
-    console.log('Nombre:', nombre);
-    console.log('Correo:', correo);
-    console.log('Contraseña:', contrasena);
-    
-    // Limpia los campos después del registro
-    setNombre('');
-    setCorreo('');
-    setContrasena('');
-    setConfirmarContrasena('');
+     // Limpiar los campos
+     setNombre('');
+     setCorreo('');
+     setContrasena('');
+     setConfirmarContrasena('');
+
+      // Redirigir al login después de un registro exitoso
+    navigate('/');
+
+
   };
 
   const handleCancelar = () => {
-    // Aquí puedes manejar la acción de cancelar
-    // Por ejemplo, redirigir a otra página, limpiar formularios, etc.
-    setNombre('');
-    setCorreo('');
-    setContrasena('');
-    setConfirmarContrasena('');
+   
+      // Limpiar los campos
+      setNombre('');
+      setCorreo('');
+      setContrasena('');
+      setConfirmarContrasena('');
+  
+    // Redirigir a la página de inicio de sesión
+      
+    navigate('/');
+
   };
 
   return (
