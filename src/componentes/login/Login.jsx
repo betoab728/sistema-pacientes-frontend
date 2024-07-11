@@ -1,11 +1,11 @@
-import React from 'react'
+
 import { useState } from 'react'
-import './Login.css' 
 import fondoLogin from '../../assets/fondo-login.jpg';
+import { Link } from 'react-router-dom'; 
 
 
 export const Login = () => {
-
+ 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -35,7 +35,7 @@ export const Login = () => {
             } else {
               // Manejar errores de autenticación
               setMessage(data.message);
-              console.error('Credenciales inválidas');
+              console.error(message);
             }
           } catch (error) {
             console.error('Error al conectar con la API', error);
@@ -44,7 +44,9 @@ export const Login = () => {
     }
 
     return (
-      <div className="h-screen flex items-center justify-center" >
+      
+      <div className="min-h-screen  flex items-center justify-center  bg-cover bg-center bg-no-repeat" 
+      style={{ backgroundImage: `url(${fondoLogin})` }}>
         <div className="bg-white py-5 px-8 border-t-4 border-blue-700 rounded-md shadow-lg">
           <h2 className="text-3xl text-gray-400 mb-3">Iniciar sesion</h2>
   
@@ -79,11 +81,12 @@ export const Login = () => {
           >
             Ingresar
           </button>
-          <a href="#" className="text-sm text-blue-400 mr-3">Registrarse </a>
+          < Link to="/nuevo-usuario" className="text-sm text-blue-400 mr-3">Soy nuevo usuario </Link>
           <a href="#" className="text-sm text-blue-400">Olvide mi contraseña </a>
         </div>
       </div>
     );
+    
 } 
 
 export default Login;
