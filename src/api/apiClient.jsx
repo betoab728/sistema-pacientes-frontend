@@ -1,19 +1,16 @@
-// apiClient.js
-
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/api/users',
+    baseURL: 'http://localhost:3001/api/users',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 // Funciones para interactuar con la API
-
 export const getUsers = async () => {
     try {
-        const response = await apiClient.get('USERS_ENDPOINT');
+        const response = await apiClient.get('/');
         return response.data;
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -23,7 +20,7 @@ export const getUsers = async () => {
 
 export const createUser = async (userData) => {
     try {
-        const response = await apiClient.post('/users', userData);
+        const response = await apiClient.post('/', userData);
         return response.data;
     } catch (error) {
         console.error('Error creating user:', error);
@@ -33,7 +30,7 @@ export const createUser = async (userData) => {
 
 export const updateUser = async (userId, userData) => {
     try {
-        const response = await apiClient.put(`/users/${userId}`, userData);
+        const response = await apiClient.put(`/${userId}`, userData);
         return response.data;
     } catch (error) {
         console.error(`Error updating user ${userId}:`, error);
@@ -43,7 +40,7 @@ export const updateUser = async (userId, userData) => {
 
 export const loginUser = async (email, password) => {
     try {
-        const response = await apiClient.post('/users/login', { email, password });
+        const response = await apiClient.post('/login', { email, password });
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -52,8 +49,6 @@ export const loginUser = async (email, password) => {
 };
 
 // Funciones para clientes, doctores, citas, etc.
-
-// Ejemplo para gestionar clientes
 export const getClients = async () => {
     try {
         const response = await apiClient.get('/clients');
@@ -64,7 +59,5 @@ export const getClients = async () => {
     }
 };
 
-// Puedes definir más funciones según las rutas y controladores en tu backend
-
-
 export default apiClient;
+
