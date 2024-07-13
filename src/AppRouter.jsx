@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route,Routes,Navigate  } from 'react-router-dom';
 import Login from './componentes/login/Login';
-import NuevoUsuario from './componentes/registroUsuario/nuevoUsuario';
+import NuevoUsuario from './componentes/registroUsuario/NuevoUsuario';
 import Dashboard from './componentes/dashboard/Dashboard';
 
 export const AppRouter = () => {
@@ -12,7 +12,6 @@ export const AppRouter = () => {
       <Route path="/dashboard" element={ <Dashboard />} />
       <Route path="*" element={ <Navigate to="/" />} />
       <Route path="/*" element={<Navigate to="/" />} />
-
     </Routes>
   
   )

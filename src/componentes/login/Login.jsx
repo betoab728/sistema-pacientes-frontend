@@ -1,28 +1,25 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import fondoLogin from '../../assets/fondo-login.jpg';
-import { UserContext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { loginUser } = UserContext(); // Usar el contexto
-  const navigate = useNavigate();  // Para redirigir después del login
+  const { loginUser } = useUserContext();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser(email, password); // Usar la función del contexto
+      const response = await loginUser(email, password);
       if (response.token) {
-        // Manejar la respuesta exitosa
         setMessage('Usuario autenticado correctamente');
         console.log('Usuario autenticado correctamente');
         localStorage.setItem('token', response.token);
-         // Redirigir al dashboard
         navigate('/dashboard');
       } else {
-        // Manejar errores de autenticación
         setMessage('Error de autenticación');
         console.error('Error de autenticación');
       }
@@ -31,8 +28,6 @@ export const Login = () => {
       setMessage('Error al conectar con la API');
     }
   };
-
- 
 
   return (
     <div
@@ -73,8 +68,6 @@ export const Login = () => {
         >
           Ingresar
         </button>
-      
-        
         <Link to="/nuevo-usuario" className="text-sm text-blue-400 mr-3">
           Soy nuevo usuario
         </Link>

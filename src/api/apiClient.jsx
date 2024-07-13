@@ -38,9 +38,22 @@ export const updateUser = async (userId, userData) => {
     }
 };
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (correo, clave) => {
     try {
-        const response = await apiClient.post('/login', { email, password });
+        console.log('Logging in...apiClient');
+        console.log('email:', correo);
+        console.log('password length:', clave.length);
+
+         // Construye la URL completa para la petición
+         const url = `${apiClient.defaults.baseURL}/login`;
+         console.log('Request URL:', url);
+ 
+         // Muestra el cuerpo de la solicitud
+         const requestBody = { correo, clave };
+         console.log('Request Body:', requestBody);
+ 
+
+        const response = await apiClient.post('/login', { correo, clave });
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);

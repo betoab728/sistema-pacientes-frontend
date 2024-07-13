@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { getUsers, createUser, loginUser } from '../api/apiClient'; // Importa las funciones directamente
 
 const UserContext = createContext();
 
-
+export const useUserContext = () => useContext(UserContext);
+ 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
@@ -19,6 +20,7 @@ export const UserProvider = ({ children }) => {
   const handleCreateUser = async (userData) => {
     try {
       const createdUser = await createUser(userData);
+      
       setUsers([...users, createdUser]); // Actualiza la lista de usuarios localmente
     } catch (error) {
       console.error('Error creating user:', error);
@@ -27,6 +29,7 @@ export const UserProvider = ({ children }) => {
 
   const handleLoginUser = async (email, password) => {
     try {
+     
       const response = await loginUser(email, password);
       return response;
     } catch (error) {
