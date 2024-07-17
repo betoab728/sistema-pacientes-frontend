@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 
 const ListadoUsuarios = () => {
-  const [usuarios, setUsuarios] = useState([]);
-  const { users } = useUserContext(); // Accede a fetchUsers desde UserContext
+  const { fetchUsers } = useUserContext();
+  const [users, setUsers] = useState([]); 
 
   useEffect(() => {
     const cargarUsuarios = async () => {
       try {
         console.log('Cargando usuarios...ListadoUsuarios');
-        const usuariosCargados = await users; // Usa fetchUsers para obtener los usuarios
-        console.log("Datos recibidos de la API:", usuariosCargados);
-        setUsuarios(usuariosCargados);
+        const response= await fetchUsers();
+        setUsers(response);
       } catch (error) {
         console.error('Error al cargar los usuarios en ListadoUsuarios:', error);
       }
     };
 
     cargarUsuarios();
-  }, [users]); // Añade fetchUsers como dependencia para re-ejecutar si fetchUsers cambia
+  }, []); // Dependencia vacía para ejecutar solo una vez al montar el componente
 
-  // Función para manejar la creación (podrías implementar la lógica de navegación o mostrar un modal, etc.)
   const handleCrear = () => {
     console.log('Crear nuevo usuario');
   };
 
-  // Función para manejar la modificación (necesitarás identificar el usuario a modificar, por ejemplo)
   const handleModificar = (id) => {
     console.log(`Modificar usuario con id: ${id}`);
   };
@@ -49,15 +46,17 @@ const ListadoUsuarios = () => {
           </tr>
         </thead>
         <tbody>
-          {usuarios.map((usuario) => (
+          {users.map((usuario) => (
             <tr key={usuario._id}>
               <td className="py-2 px-4 border-b text-left">{usuario._id}</td>
-              <td className="py-2 px-4 border-b text-left">{usuario.nombre}</td>
+              <td className="py-2 px-4 bertoalegrebarazorda@order-b text-left">{usuario.nombre}</td>
               <td className="py-2 px-4 border-b text-left">{usuario.correo}</td>
-              <td className="py-2 px-4 border-b text-left">{usuario.fechaRegistro}</td>
-              <td className="py-2 px-4 border-b text-left">{usuario.estado}</td>
+              <td className="py-2 px-4 border-b text-left">{new Date(usuario.fechaRegistro).toLocaleString()}</td>
+              <td className="py-2 px-4 border-b text-left">{usuario.activo ? "Activo" : "Inactivo"}</td>
               <td className="py-2 px-4 border-b text-left">
-                <button onClick={() => handleModificar(usuario._id)}>Modificar</button>
+                <button onClick={() => handleModificar(usuario._id)}
+                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                     <i className="fas fa-pen mr-2"></i> Modificar</button>
               </td>
             </tr>
           ))}
@@ -68,5 +67,3 @@ const ListadoUsuarios = () => {
 };
 
 export default ListadoUsuarios;
-
-
