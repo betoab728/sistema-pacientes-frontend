@@ -10,6 +10,7 @@ const apiClient = axios.create({
 // Funciones para interactuar con la API
 export const getUsers = async () => {
     try {
+        console.log('Fetching users...apiClient');
         const response = await apiClient.get('/');
         return response.data;
     } catch (error) {

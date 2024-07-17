@@ -12,6 +12,7 @@ export const UserProvider = ({ children }) => {
     try {
       const fetchedUsers = await getUsers();
       setUsers(fetchedUsers);
+      console.log('Datos recibidos de la API en usercontext:', fetchedUsers);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
@@ -39,7 +40,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ users, fetchUsers, createUser: handleCreateUser, loginUser: handleLoginUser }}>
+    <UserContext.Provider value={{ users, createUser: handleCreateUser, loginUser: handleLoginUser }}>
       {children}
     </UserContext.Provider>
   );
