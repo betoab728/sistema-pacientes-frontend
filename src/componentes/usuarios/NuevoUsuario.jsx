@@ -96,7 +96,7 @@ const NuevoUsuario = () => {
         </div>
 
         <button
-          className="border-none bg-blue-800 py-2 px-3 text-white rounded-sm w-full mt-2 rounded-md hover:bg-blue-700 mb-3"
+          className="border-none bg-blue-800 py-2 px-3 text-white w-full mt-2 rounded-md hover:bg-blue-700 mb-3"
           type="button"
           onClick={handleRegistro}
         >
@@ -104,7 +104,7 @@ const NuevoUsuario = () => {
         </button>
 
         <button
-          className="border border-gray-300 py-2 px-3 text-gray-700 rounded-sm w-full mt-2 rounded-md hover:bg-gray-200"
+          className="border border-gray-300 py-2 px-3 text-gray-700 w-full mt-2 rounded-md hover:bg-gray-200"
           type="button"
           onClick={handleCancelar}
         >

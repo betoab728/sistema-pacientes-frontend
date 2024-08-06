@@ -18,7 +18,7 @@ export const Login = () => {
         setMessage('Usuario autenticado correctamente');
         console.log('Usuario autenticado correctamente');
         localStorage.setItem('token', response.token);
-        navigate('/dashboard');
+        navigate('/main');
       } else {
         setMessage('Error de autenticación');
         console.error('Error de autenticación');
@@ -62,7 +62,7 @@ export const Login = () => {
         </div>
 
         <button
-          className="border-none bg-blue-800 py-2 px-3 text-white rounded-sm w-full mt-2 rounded-md hover:bg-blue-700 mb-5"
+          className="border-none bg-blue-800 py-2 px-3 text-white  w-full mt-2 rounded-md hover:bg-blue-700 mb-5"
           type="submit"
           onClick={handleLogin}
         >

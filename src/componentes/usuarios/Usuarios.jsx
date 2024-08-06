@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 
-const ListadoUsuarios = () => {
+const Usuarios = () => {
   const { fetchUsers } = useUserContext();
   const [users, setUsers] = useState([]); 
 
@@ -66,4 +66,4 @@ const ListadoUsuarios = () => {
   );
 };
 
-export default ListadoUsuarios;
+export default Usuarios;
