@@ -1,7 +1,7 @@
 // endpoints
 
-export const USERS_ENDPOINT = '/users';
-export const DOCTORS_ENDPOINT = '/doctors';
-export const CLIENTS_ENDPOINT = '/clients';
-export const APPOINTMENTS_ENDPOINT = '/appointments';
+export const USUARIOS_ENDPOINT = '/usuarios';
+export const DOCTORES_ENDPOINT = '/doctores';
+export const PACIENTES_ENDPOINT = '/pacientes';
+export const CITAS_ENDPOINT = '/citas';
 

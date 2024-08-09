@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { USUARIOS_ENDPOINT } from './endpoints';
 
-const apiClient = axios.create({
-    baseURL: 'http://localhost:3001/api/users',
+
+const UsuariosApiClient = axios.create({
+    baseURL: `http://localhost:3001${USUARIOS_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -11,7 +13,7 @@ const apiClient = axios.create({
 export const getUsers = async () => {
     try {
         console.log('Fetching users...apiClient');
-        const response = await apiClient.get('/');
+        const response = await UsuariosApiClient.get('/');
         return response.data;
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -21,7 +23,8 @@ export const getUsers = async () => {
 
 export const createUser = async (userData) => {
     try {
-        const response = await apiClient.post('/', userData);
+        console.log('Creating user...apiClient: ', userData);
+        const response = await UsuariosApiClient.post('/', userData);
         return response.data;
     } catch (error) {
         console.error('Error creating user:', error);
@@ -31,7 +34,7 @@ export const createUser = async (userData) => {
 
 export const updateUser = async (userId, userData) => {
     try {
-        const response = await apiClient.put(`/${userId}`, userData);
+        const response = await UsuariosApiClient.put(`/${userId}`, userData);
         return response.data;
     } catch (error) {
         console.error(`Error updating user ${userId}:`, error);
@@ -46,7 +49,7 @@ export const loginUser = async (correo, clave) => {
         console.log('password length:', clave.length);
 
          // Construye la URL completa para la petición
-         const url = `${apiClient.defaults.baseURL}/login`;
+         const url = `${UsuariosApiClient.defaults.baseURL}/login`;
          console.log('Request URL:', url);
  
          // Muestra el cuerpo de la solicitud
@@ -54,7 +57,7 @@ export const loginUser = async (correo, clave) => {
          console.log('Request Body:', requestBody);
  
 
-        const response = await apiClient.post('/login', { correo, clave });
+        const response = await UsuariosApiClient.post('/login', { correo, clave });
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -62,16 +65,19 @@ export const loginUser = async (correo, clave) => {
     }
 };
 
-// Funciones para clientes, doctores, citas, etc.
-export const getClients = async () => {
+
+// Funcion para listar usuario por id
+export const getUserById = async (userId) => {
     try {
-        const response = await apiClient.get('/clients');
+        const response = await UsuariosApiClient.get(`/${userId}`);
+        console.log('Datos recibidos de la API en usercontext:', response.data);
         return response.data;
+      
     } catch (error) {
-        console.error('Error fetching clients:', error);
+        console.error(`Error fetching user ${userId}:`, error);
         throw error;
     }
 };
 
-export default apiClient;
+export default UsuariosApiClient;
 

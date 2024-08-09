@@ -1,15 +1,17 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom'; // Solo importamos useNavigate
 
 const Usuarios = () => {
   const { fetchUsers } = useUserContext();
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate(); // Definir navigate aquí
 
   useEffect(() => {
     const cargarUsuarios = async () => {
       try {
         console.log('Cargando usuarios...ListadoUsuarios');
-        const response= await fetchUsers();
+        const response = await fetchUsers();
         setUsers(response);
       } catch (error) {
         console.error('Error al cargar los usuarios en ListadoUsuarios:', error);
@@ -21,10 +23,12 @@ const Usuarios = () => {
 
   const handleCrear = () => {
     console.log('Crear nuevo usuario');
+    navigate('/main/usuarios/nuevo'); // Navegar a la ruta de creación de usuario
   };
 
   const handleModificar = (id) => {
     console.log(`Modificar usuario con id: ${id}`);
+    navigate(`/main/usuarios/editar/${id}`); // Navegar a la ruta de edición de usuario
   };
 
   return (
@@ -49,14 +53,14 @@ const Usuarios = () => {
           {users.map((usuario) => (
             <tr key={usuario._id}>
               <td className="py-2 px-4 border-b text-left">{usuario._id}</td>
-              <td className="py-2 px-4 bertoalegrebarazorda@order-b text-left">{usuario.nombre}</td>
+              <td className="py-2 px-4 border-b text-left">{usuario.nombre}</td>
               <td className="py-2 px-4 border-b text-left">{usuario.correo}</td>
               <td className="py-2 px-4 border-b text-left">{new Date(usuario.fechaRegistro).toLocaleString()}</td>
               <td className="py-2 px-4 border-b text-left">{usuario.activo ? "Activo" : "Inactivo"}</td>
               <td className="py-2 px-4 border-b text-left">
                 <button onClick={() => handleModificar(usuario._id)}
-                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                     <i className="fas fa-pen mr-2"></i> Modificar</button>
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  <i className="fas fa-pen mr-2"></i> Modificar</button>
               </td>
             </tr>
           ))}
