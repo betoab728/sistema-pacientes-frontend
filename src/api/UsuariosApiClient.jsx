@@ -52,12 +52,18 @@ export const loginUser = async (correo, clave) => {
          const url = `${UsuariosApiClient.defaults.baseURL}/login`;
          console.log('Request URL:', url);
  
-         // Muestra el cuerpo de la solicitud
+         //  el cuerpo de la solicitud
          const requestBody = { correo, clave };
          console.log('Request Body:', requestBody);
  
 
         const response = await UsuariosApiClient.post('/login', { correo, clave });
+        if (response.status === 200) {
+            console.log('Login successful:', response.data);
+        } else {
+            console.error('Login failed:', response.data);
+        }
+
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);

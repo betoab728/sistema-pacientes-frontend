@@ -11,6 +11,7 @@ import '@fontsource/roboto/700.css';
 
 import './index.css'
 import { UserProvider } from './contexts/UserContext'
+import { JobProvider } from './contexts/JobContext'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -18,9 +19,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
   <React.StrictMode>
     <UserProvider>
-      <BrowserRouter>
-      <AppRouter />
-      </BrowserRouter>
+    <JobProvider> {/* Envolver con JobProvider */}
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </JobProvider>
     </UserProvider>
   </React.StrictMode>
  

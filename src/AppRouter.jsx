@@ -6,7 +6,7 @@ import  Usuarios  from './componentes/usuarios/Usuarios';
 import  {Pacientes } from './componentes/pacientes/Pacientes';
 import  {Doctores}  from './componentes/doctores/Doctores';
 import { Citas}  from './componentes/citas/Citas';
-import { Ocupaciones}  from './componentes/ocupaciones/Ocupaciones';
+import  Ocupaciones  from './componentes/ocupaciones/Ocupaciones';
 import  NuevoUsuario from './componentes/usuarios/NuevoUsuario';
 import ActualizarUsuario from './componentes/usuarios/ActualizarUsuario';
 
@@ -26,6 +26,7 @@ export const AppRouter = () => {
         <Route path="doctores" element={<Doctores />} />
         <Route path="citas" element={<Citas />} />
         <Route path="ocupaciones" element={<Ocupaciones />} />
+
       </Route>
           <Route path="*" element={<Navigate to="/main/dashboard" />} />
     </Routes>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom'; // Solo importamos useNavigate
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Usuarios = () => {
   const { fetchUsers } = useUserContext();
@@ -46,7 +48,7 @@ const Usuarios = () => {
             <th className="py-2 px-4 border-b text-left">Correo</th>
             <th className="py-2 px-4 border-b text-left">FechaRegistro</th>
             <th className="py-2 px-4 border-b text-left">Estado</th>
-            <th className="py-2 px-4 border-b text-left">Acciones</th>
+            <th className="py-2 px-4 border-b text-left">Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +62,7 @@ const Usuarios = () => {
               <td className="py-2 px-4 border-b text-left">
                 <button onClick={() => handleModificar(usuario._id)}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                  <i className="fas fa-pen mr-2"></i> Modificar</button>
+                   <FontAwesomeIcon icon={faEdit} /> </button>
               </td>
             </tr>
           ))}
