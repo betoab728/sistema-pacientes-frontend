@@ -97,7 +97,7 @@ const ActualizarUsuario = () => {
                       text: 'Usuario actualizado con éxito',
                       confirmButtonText: 'Cerrar'
                   });
-                  navigate('/usuarios'); // Redirige a la lista de usuarios o a otra página
+                  navigate('/main/usuarios'); // Redirige a la lista de usuarios o a otra página
               } catch (error) {
                   Swal.fire({
                       icon: 'error',
@@ -115,7 +115,7 @@ const ActualizarUsuario = () => {
 
     //definir handleCancelar
     const handleCancelar = () => {
-        navigate('/dashboard/');
+        navigate('/main/usuarios/');
     };
 
     if (loading) return <div>Loading...</div>;

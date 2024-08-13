@@ -80,7 +80,7 @@ const NuevoUsuario = () => {
         setConfirmarContrasena('');
         
         // Redirigir al dashboard
-        navigate('/dashboard/');
+        navigate('/main/usuarios');
     } catch (error) {
         console.error('Error al registrar el usuario:', error);
         // Aquí podrías manejar el error, mostrando un mensaje al usuario, etc.
@@ -103,7 +103,7 @@ const NuevoUsuario = () => {
     setConfirmarContrasena('');
 
     // Redirigir al dashboard
-    navigate('/dashboard/');
+    navigate('/main/usuarios/');
   };
 
   return (

@@ -3,6 +3,7 @@ import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom'; // Solo importamos useNavigate
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Usuarios = () => {
   const { fetchUsers } = useUserContext();
@@ -33,6 +34,10 @@ const Usuarios = () => {
     navigate(`/main/usuarios/editar/${id}`); // Navegar a la ruta de edición de usuario
   };
 
+  const handleEliminar = async (id) => {
+    console.log(`Eliminar usuario con id: ${id}`);
+  }
+
   return (
     <div className='mt-12'>
       <h1 className="text-2xl font-bold mb-2 text-center">Usuarios del sistema</h1>
@@ -48,7 +53,7 @@ const Usuarios = () => {
             <th className="py-2 px-4 border-b text-left">Correo</th>
             <th className="py-2 px-4 border-b text-left">FechaRegistro</th>
             <th className="py-2 px-4 border-b text-left">Estado</th>
-            <th className="py-2 px-4 border-b text-left">Editar</th>
+            <th className="py-2 px-4 border-b text-left">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -61,8 +66,13 @@ const Usuarios = () => {
               <td className="py-2 px-4 border-b text-left">{usuario.activo ? "Activo" : "Inactivo"}</td>
               <td className="py-2 px-4 border-b text-left">
                 <button onClick={() => handleModificar(usuario._id)}
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                   <FontAwesomeIcon icon={faEdit} /> </button>
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center m-1">
+                   <FontAwesomeIcon icon={faEdit} /> 
+                </button>
+                <button onClick={() => handleEliminar(doctor._id)} 
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
               </td>
             </tr>
           ))}

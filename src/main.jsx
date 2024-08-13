@@ -12,19 +12,27 @@ import '@fontsource/roboto/700.css';
 import './index.css'
 import { UserProvider } from './contexts/UserContext'
 import { JobProvider } from './contexts/JobContext'
+import { PatientProvider } from './contexts/PatientContext';
+import { DoctorProvider } from './contexts/DoctorContext';
+import { AppointmentProvider } from './contexts/AppointmentContext';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
-
   <React.StrictMode>
-    <UserProvider>
-    <JobProvider> {/* Envolver con JobProvider */}
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </JobProvider>
-    </UserProvider>
+    <AppointmentProvider>
+    <DoctorProvider> {/* Envolver con DoctorProvider */}
+      <PatientProvider>
+      <UserProvider>
+      <JobProvider> {/* Envolver con JobProvider */}
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+        </JobProvider>
+      </UserProvider>
+      </PatientProvider>
+      </DoctorProvider>
+    </AppointmentProvider>
   </React.StrictMode>
  
 );

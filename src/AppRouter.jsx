@@ -3,12 +3,18 @@ import Login from './componentes/login/Login';
 import  MainLayout  from './componentes/MainLayout';
 import  {Dashboard}  from './componentes/dashboard/Dashboard';
 import  Usuarios  from './componentes/usuarios/Usuarios';
-import  {Pacientes } from './componentes/pacientes/Pacientes';
-import  {Doctores}  from './componentes/doctores/Doctores';
-import { Citas}  from './componentes/citas/Citas';
+import  Citas  from './componentes/citas/Citas';
 import  Ocupaciones  from './componentes/ocupaciones/Ocupaciones';
 import  NuevoUsuario from './componentes/usuarios/NuevoUsuario';
 import ActualizarUsuario from './componentes/usuarios/ActualizarUsuario';
+import Pacientes from './componentes/pacientes/Pacientes';
+import AddPatient from './componentes/pacientes/AddPatient';
+import EditPatient from './componentes/pacientes/EditPatient';
+import Doctores from './componentes/doctores/Doctores';
+import AddDoctor from './componentes/doctores/AddDoctor';
+import EditDoctor from './componentes/doctores/EditDoctor';
+import AddCita from './componentes/citas/AddCita';
+import EditCita from './componentes/citas/EditCita';
 
 export const AppRouter = () => {
   return (
@@ -23,10 +29,15 @@ export const AppRouter = () => {
         <Route path="usuarios/nuevo" element={<NuevoUsuario />} />
         <Route path="usuarios/editar/:id" element={<ActualizarUsuario />} />
         <Route path="pacientes" element={<Pacientes />} />
+        <Route path="pacientes/nuevo" element={<AddPatient />} />
+        <Route path="pacientes/editar/:id" element={<EditPatient />} />
         <Route path="doctores" element={<Doctores />} />
+        <Route path="doctores/nuevo" element={<AddDoctor />} />
+        <Route path="doctores/editar/:id" element={<EditDoctor />} />
         <Route path="citas" element={<Citas />} />
+        <Route path="citas/nuevo" element={<AddCita />} />
+        <Route path="citas/editar/:id" element={<EditCita />} />
         <Route path="ocupaciones" element={<Ocupaciones />} />
-
       </Route>
           <Route path="*" element={<Navigate to="/main/dashboard" />} />
     </Routes>
