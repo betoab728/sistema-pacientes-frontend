@@ -10,55 +10,51 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const EditCita = () => {
-    const { appointments, setAppointments, updateAppointment , findAppointmentById} = useAppointmentContext();
+    const { appointments, updateAppointment , findAppointmentById} = useAppointmentContext();
     const { patients,fetchPatients } = usePatientContext();
     const { doctors,fetchDoctors } = useDoctorContext();
     const navigate = useNavigate();
     const { id } = useParams();
 
     //usesstate para los pacientes
-    const [selectedPatient, setSelectedPatient ] = useState([]);
+    const [selectedPatient, setSelectedPatient ] = useState('');
     //usesstate para los doctores
-    const [selectedDoctor, setSelectedDoctor] = useState([]);
+    const [selectedDoctor, setSelectedDoctor] = useState('');
 
     const [appointment, setAppointment] = useState({
         id: '',
         date: new Date(),
         hour: '',
-        patientID: '',
+        patientID: selectedPatient,
         doctorID: '',
         office: '',
         notes:'',
         status: 'scheduled'
     });
 
-    // se carga los pacientes en el select
+    // se carga los pacientes con use effect y el metodo fetchPatients
     useEffect(() => {
         const cargarPacientes = async () => {
             try {
-                console.log('Cargando pacientes...AddCita')
-                const response = await fetchPatients()
-                setSelectedPatient(response)
+               await fetchPatients()
+              
             } catch (error) {
                 console.error('Error al cargar los pacientes en AddCita:', error)
             }
         }
-
         cargarPacientes()
-    }, [])  
+    }, [])
+  
 
-    // se carga los doctores en el select
+    // se carga los doctores con use effect y el metodo fetchDoctors
     useEffect(() => {
         const cargarDoctores = async () => {
             try {
-                console.log('Cargando doctores...AddCita')
-                const response = await fetchDoctors()
-                setSelectedDoctor(response)
+                await fetchDoctors()
             } catch (error) {
                 console.error('Error al cargar los doctores en AddCita:', error)
             }
         }
-
         cargarDoctores()
     }, [])
     
@@ -88,8 +84,9 @@ const EditCita = () => {
 
                 setLoading(false);
                 //se asiggna el paciente y doctor de la cita a los select
-                setSelectedPatient(appointment.patientID);
-                setSelectedDoctor(appointment.doctorID);
+                setSelectedPatient(fetchedAppointment.patientID);
+              // console.log('se asigna paciente seleccionado:', appointment.patientID);
+                setSelectedDoctor(fetchedAppointment.doctorID);
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
@@ -101,7 +98,6 @@ const EditCita = () => {
         getAppointment();
     }
     , [appointments, id]);
-
 
        const handleDateChange = (date) => {
         setAppointment({
@@ -118,16 +114,13 @@ const EditCita = () => {
     };
 
     const handlePatientChange = (e) => {
-
        
        const newPatient=e.target.value;
        setSelectedPatient(newPatient);
-
        setAppointment(prevAppointment => ({
               ...prevAppointment,
               patientID: newPatient
          }));
-       
 
     };
 
@@ -154,7 +147,6 @@ const EditCita = () => {
         });
         navigate('/');
     }
-
     const handleCancelar = () => {
         navigate('/main/citas');
     }
@@ -199,11 +191,12 @@ const EditCita = () => {
                         <select
                         id="patient"
                         name="patient"
-                        value={appointment.patientID}
+                        value={selectedPatient}
                         onChange={(e) => handlePatientChange(e.target.value)}
                         className="w-full p-2 mt-1 bg-gray-200 rounded-md focus:outline-none"
                         >
                         <option value="">Seleccionar paciente</option>
+                    
                         {patients.map((patient) => (
                             <option key={patient._id} value={patient._id}>{patient.name}</option>
                         ))}
@@ -215,7 +208,7 @@ const EditCita = () => {
                         <select
                         id="doctor"
                         name="doctor"
-                        value={appointment.doctorID}
+                        value={selectedDoctor}
                         onChange={(e) => handleDoctorChange(e.target.value)}
                         className="w-full p-2 mt-1 bg-gray-200 rounded-md focus:outline-none"
                         >
