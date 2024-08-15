@@ -30,8 +30,6 @@ const menuItems = [
   { text: 'Ocupaciones', icon: <FontAwesomeIcon icon={faBriefcaseMedical} />, path: '/main/ocupaciones' },
   { text: 'Citas', icon: <FontAwesomeIcon icon={faCalendarAlt} />, path: '/main/citas' },
   //agregar opcion para historial clinico con el icono de faFileMedicalAlt
-
-
   { text: 'Historial Clínico', icon: <FontAwesomeIcon icon={faFileMedicalAlt} />, path: '/main/historial' },
 
   

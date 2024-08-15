@@ -16,15 +16,15 @@ export const Login = () => {
       const response = await loginUser(email, password);
       if (response.token) {
         setMessage('Usuario autenticado correctamente');
-        console.log('Usuario autenticado correctamente');
+       // console.log('Usuario autenticado correctamente');
         localStorage.setItem('token', response.token);
         navigate('/main');
       } else {
         setMessage('Error de autenticación');
-        console.error('Error de autenticación');
+      //  console.error('Error de autenticación');
       }
     } catch (error) {
-      console.error('Error al conectar con la API', error);
+      //console.error('Error al conectar con la API', error);
       setMessage('Error al conectar con la API');
     }
   };

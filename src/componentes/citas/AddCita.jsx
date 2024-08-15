@@ -202,7 +202,9 @@ const AddCita = () => {
                         >
                         <option value="">Seleccionar paciente</option>
                         {patients.map((patient) => (
-                            <option key={patient._id} value={patient._id}>{patient.name}</option>
+                            <option key={patient._id} value={patient._id}>
+                                 {`${patient.name} ${patient.paternalSurname} ${patient.maternalSurname}`}
+                            </option>
                         ))}
                         </select>
                     </div>
@@ -218,7 +220,9 @@ const AddCita = () => {
                         >
                         <option value="">Seleccionar doctor</option>
                         {doctors.map((doctor) => (
-                            <option key={doctor._id} value={doctor._id}>{doctor.name}</option>
+                            <option key={doctor._id} value={doctor._id}>
+                                {`${doctor.name} ${doctor.paternalSurname} ${doctor.maternalSurname}`}
+                            </option>
                         ))}
                         </select>
                     </div>

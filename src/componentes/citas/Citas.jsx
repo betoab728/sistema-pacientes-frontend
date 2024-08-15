@@ -7,10 +7,11 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 //icono para actualizar el estado de la cita
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2'
 
 const Citas = () => {
 
-    const { fetchAppointments } = useAppointmentContext()
+    const { fetchAppointments,updateAppointmentStatus } = useAppointmentContext()
     const [citas, setCitas] = useState([])
     const navigate = useNavigate()
 
@@ -44,12 +45,59 @@ const Citas = () => {
       }
       // para actualizar el estado de la cita de pendiente a atendida o cancelada
     const handleActualizar = async (id) => {
-        console.log(`Actualizar cita con id: ${id}`)
+
+        //aca se muestra un mensaje con sweetalert2 para confirmar la actualizacion del estado de la cita 
+   
+        const { value: status } = await Swal.fire({
+            title: 'Actualizar Estado de Cita',
+            input: 'select',
+            inputOptions: {
+                Programada: 'Programada',
+                Completada: 'Completada',
+                Cancelada: 'Cancelada'
+            },
+            inputPlaceholder: 'Selecciona un estado',
+            showCancelButton: true,
+            confirmButtonText: 'Actualizar',
+            cancelButtonText: 'Cancelar'
+        });
+    
+        if (status) {
+            // Convertir el estado en español al formato esperado por el backend
+            let statusValue;
+            switch (status) {
+                case 'Programada':
+                    statusValue = 'scheduled';
+                    break;
+                case 'Completada':
+                    statusValue = 'completed';
+                    break;
+                case 'Cancelada':
+                    statusValue = 'canceled';
+                    break;
+                default:
+                    return;
+            }
+    
+            try {
+                // Llamar al método del context para actualizar el estado
+                await updateAppointmentStatus(id, statusValue);
+                Swal.fire('Actualizado', 'El estado de la cita ha sido actualizado', 'success');
+                // se actualiza el estado de las citas para que se refleje en la vista con setappointments
+
+                navigate('/main/citas')
+
+
+            } catch (error) {
+                Swal.fire('Error', 'No se pudo actualizar el estado de la cita', 'error');
+            }
         }
+      
+    }
 
     //defino este objeto para poder mapear el estado de la cita
     const statusMap = {
-        scheduled : "Pendiente",
+        scheduled : "Programada",
         completed  : "Atendida",
         canceled: "Cancelada"
     };
@@ -91,11 +139,10 @@ const Citas = () => {
                                 <button onClick={() => handleEliminar(doctor._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-1">
                                     <FontAwesomeIcon icon={faTrash} />
                                 </button>
-                                <button onClick={() => handleActualizar(doctor._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-1">
+                                <button onClick={() => handleActualizar(cita._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-1">
                                     <FontAwesomeIcon icon={faCheck} />
                                 </button>
                             </td>
-                          
                           
                         </tr>
                     ))}

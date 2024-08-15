@@ -36,7 +36,9 @@ export const createAppointment = async (appointmentData) => {
 //actualizar un appointment
 export const updateAppointment = async (appointmentId, appointmentData) => {
     try {
+        console.log('actualizando en la api.apiClient: ', appointmentData);
         const response = await AppointmentApiClient.put(`/${appointmentId}`, appointmentData);
+
         return response.data;
     } catch (error) {
         console.error(`Error updating appointment ${appointmentId}:`, error);
@@ -65,6 +67,21 @@ export const getAppointmentsByDate = async (from, to) => {
         throw error;
     }
 };
+
+//actualizar un appointment con el id y el estado: programado, cancelado, completado
+
+export const updateAppointmentStatus = async (appointmentId, status) => {
+   //la url es de tipo :http://localhost:3001/appointments/status/66b7f9dcddffb99ef1c87f83
+    try {
+        console.log('actualizando en la api.apiClient: ', status);
+        const response = await AppointmentApiClient.put(`/status/${appointmentId}`, { status });
+
+        return response.data;
+    } catch (error) {
+        console.error(`Error updating appointment ${appointmentId}:`, error);
+        throw error;
+    }
+}
 
 // fin de metodos de apiClient
 // exportar 

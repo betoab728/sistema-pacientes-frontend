@@ -10,19 +10,7 @@ const PatientsApiClient = axios.create({
     }
 });
 //metodos de la api para los pacientes segun las rutas :
-/*
-router.get('/', getPatients);
-router.post('/', createPatient);
-router.get('/:id', getPatientById);
-router.put('/:id', updatePatient);
-router.delete('/:id', deletePatient);
-router.get('/job/:jobId', getPatientsByJob);
-router.get('/name/:name', getPatientsByName);
-router.get('/paternalSurname/:paternalSurname', getPatientsByPaternalSurname);
-router.get('/maternalSurname/:maternalSurname', getPatientsByMaternalSurname);
-router.get('/dni/:dni', getPatientsByDni);
 
-*/
 //lista de pacientes
 export const getPatients = async () => {
     try {
