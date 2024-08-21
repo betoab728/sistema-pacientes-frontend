@@ -4,7 +4,7 @@ import { PATIENT_ENDPOINT } from './endpoints';
 
 
 const PatientsApiClient = axios.create({
-    baseURL: `http://localhost:3001${PATIENT_ENDPOINT}`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}${PATIENT_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }

@@ -53,7 +53,7 @@ const Citas = () => {
             input: 'select',
             inputOptions: {
                 Programada: 'Programada',
-                Completada: 'Completada',
+                Atendida: 'Atendida',
                 Cancelada: 'Cancelada'
             },
             inputPlaceholder: 'Selecciona un estado',
@@ -69,7 +69,7 @@ const Citas = () => {
                 case 'Programada':
                     statusValue = 'scheduled';
                     break;
-                case 'Completada':
+                case 'Atendida':
                     statusValue = 'completed';
                     break;
                 case 'Cancelada':
@@ -81,13 +81,11 @@ const Citas = () => {
     
             try {
                 // Llamar al método del context para actualizar el estado
-                await updateAppointmentStatus(id, statusValue);
+                const resp= await updateAppointmentStatus(id, statusValue);
+                //actualizo el estado de las citas con setcitas
+                setCitas(resp);
                 Swal.fire('Actualizado', 'El estado de la cita ha sido actualizado', 'success');
-                // se actualiza el estado de las citas para que se refleje en la vista con setappointments
-
-                navigate('/main/citas')
-
-
+                
             } catch (error) {
                 Swal.fire('Error', 'No se pudo actualizar el estado de la cita', 'error');
             }

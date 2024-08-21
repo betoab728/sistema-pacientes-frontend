@@ -19,7 +19,6 @@ import ListItemText from '@mui/material/ListItemText';
 import { Outlet, Link } from 'react-router-dom'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTachometerAlt , faUsers, faNotesMedical, faUserMd, faBriefcaseMedical, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { faFileMedicalAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Define los elementos del menú con sus respectivos íconos y rutas
 const menuItems = [
@@ -30,7 +29,6 @@ const menuItems = [
   { text: 'Ocupaciones', icon: <FontAwesomeIcon icon={faBriefcaseMedical} />, path: '/main/ocupaciones' },
   { text: 'Citas', icon: <FontAwesomeIcon icon={faCalendarAlt} />, path: '/main/citas' },
   //agregar opcion para historial clinico con el icono de faFileMedicalAlt
-  { text: 'Historial Clínico', icon: <FontAwesomeIcon icon={faFileMedicalAlt} />, path: '/main/historial' },
 
   
 ];

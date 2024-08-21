@@ -3,7 +3,7 @@ import { APPOINTMENT_ENDPOINT} from './endpoints';
 
 
 const AppointmentApiClient = axios.create({
-    baseURL: `http://localhost:3001${APPOINTMENT_ENDPOINT}`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}${APPOINTMENT_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }

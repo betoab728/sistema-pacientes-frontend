@@ -3,7 +3,7 @@ import { JOB_ENDPOINT } from './endpoints';
 
 
 const JobsApiClient = axios.create({
-    baseURL: `http://localhost:3001${JOB_ENDPOINT}`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}${JOB_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }

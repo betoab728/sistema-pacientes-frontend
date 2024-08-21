@@ -1,7 +1,6 @@
 // se implementa el contexto de citas
  import React, { createContext, useState, useMemo, useCallback,useContext } from 'react';
 import AppointmentService from '../services/AppointmentService';
-import { updateAppointment } from '../api/AppointmentApiClient';
 
 const AppointmentContext = createContext();
 
@@ -9,21 +8,22 @@ export const useAppointmentContext = () => useContext(AppointmentContext);
 
 export const AppointmentProvider = ({ children }) => {
     const [appointments, setAppointments] = useState([]);
-    const [isFetched, setIsFetched] = useState(false);
+   // const [isFetched, setIsFetched] = useState(false);
 
     const fetchAppointments = useCallback(async () => {
-        if (isFetched) return appointments;
+       // if (isFetched) return appointments;
         try {
-            console.log('Fetching appointments...AppointmentContext');
+            console.log('cargando citass...AppointmentContext');
             const fetchedAppointments = await AppointmentService.fetchAppointments();
+
             setAppointments(fetchedAppointments);
-            setIsFetched(true);
+           // setIsFetched(true);
             return fetchedAppointments;
         } catch (error) {
             console.error('Error fetching appointments:', error);
             throw error;
         }
-    }, [isFetched, appointments]);
+    }, []);
 
     const handleCreateAppointment = useCallback(async (appointmentData) => {
         try {
@@ -81,9 +81,10 @@ export const AppointmentProvider = ({ children }) => {
         try {
             console.log('Updating status in AppointmentService:', status);
             await AppointmentService.updateAppointmentStatus(appointmentId, status);
-            const response = await AppointmentService.fetchAppointments();
+            const response = await fetchAppointments() ;
             setAppointments(response);
             return response;
+
         } catch (error) {
             console.error('Error updating appointment status:', error);
             throw error;

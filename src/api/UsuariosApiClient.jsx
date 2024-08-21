@@ -2,8 +2,9 @@ import axios from 'axios';
 import { USUARIOS_ENDPOINT } from './endpoints';
 
 
+
 const UsuariosApiClient = axios.create({
-    baseURL: `http://localhost:3001${USUARIOS_ENDPOINT}`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}${USUARIOS_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }

@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-
+//fas fa-folder-open
+import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 const Pacientes = () => {
     const { fetchPatients } = usePatientContext()
     const [patients, setPatients] = useState([])
@@ -44,6 +45,13 @@ const Pacientes = () => {
       f: "Femenino"
   };
 
+    const handleHistorial = (id) => {
+        console.log(`Historial del paciente con id: ${id}`)
+       // navigate(`/main/pacientes/historial/${id}`)
+       // se navega hacia la ventana de fechas de citas del paciente segun la ruta   <Route path="citas/fechas" element={<AppointmentDates />} />
+         navigate(`/main/citas/fechas/${id}`)
+    }
+
     return (
         <div className='mt-12'>
             <h1 className="text-2xl font-bold mb-2 text-center">Pacientes</h1>
@@ -63,6 +71,7 @@ const Pacientes = () => {
                         <th className="py-2 px-4 border-b text-left">Fecha de Nac.</th>
                         <th className="py-2 px-4 border-b text-left">Correo</th>
                         <th className="py-2 px-4 border-b text-left">Telefono</th>
+                        <th className="py-2 px-4 border-b text-left">Historial</th>
                        <th className="py-2 px-4 border-b text-left">Acciones</th>
                     </tr>
                 </thead>
@@ -78,6 +87,12 @@ const Pacientes = () => {
                             <td className="py-2 px-4 border-b text-left">{new Date(paciente.dateBirth).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                             <td className="py-2 px-4 border-b text-left">{paciente.email}</td>
                             <td className="py-2 px-4 border-b text-left">{paciente.phone}</td>
+                            <td className="py-2 px-4 border-b text-left">
+                                <button onClick={() => handleHistorial(paciente._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-1">
+                                    <FontAwesomeIcon icon={faFolderOpen} />
+                                 
+                                </button>
+                            </td>
                             <td className="py-2 px-4 border-b text-left">
                                 <button onClick={() => handleModificar(paciente._id)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded m-1">
                                     <FontAwesomeIcon icon={faEdit} />

@@ -3,7 +3,7 @@ import { DOCTOR_ENDPOINT } from './endpoints';
 
 
 const DoctorsApiClient = axios.create({
-    baseURL: `http://localhost:3001${DOCTOR_ENDPOINT}`,
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}${DOCTOR_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
     }
