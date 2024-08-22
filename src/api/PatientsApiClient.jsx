@@ -115,4 +115,7 @@ export const getPatientsByDni = async (dni) => {
     }
 };
 
+
+
+
 // fin de los metodos de la api de pacientes
