@@ -1,19 +1,35 @@
 // se implementa el componente para listar las historias clinicas de un paciente ordenadas por fecha y un boton para ver el detalle de la historia clinica, hago uso del contexto de historias clinicas
 
-import React, { useContext, useEffect, useState } from 'react';
+import {  useEffect,useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ClinicalHistoryContext } from '../../contexts/ClinicalHistoryContext';
+import { useClinicalHistoryContext } from '../../contexts/ClinicalHistoryContext';
 
 const ClinicalHistoryList = () => {
-    const { clinicalHistories, fetchClinicalHistories, handleFindClinicalHistoriesByPatientId } = useContext(ClinicalHistoryContext);
-    const [patientId, setPatientId] = useState();
+
+    const {  handleFindClinicalHistoriesByPatientId } = useClinicalHistoryContext();
+    //state apra guardar las historias clinicas
+    const [clinicalHistories, setClinicalHistories] = useState([]);
+      
+
     const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        setPatientId(id);
-        handleFindClinicalHistoriesByPatientId(id);
-    }, [id]);
+      
+        //uso async await y try catch para manejar los errores
+        const loadRecords = async () => {
+            try {
+                const fetchedClinicalHistories = await handleFindClinicalHistoriesByPatientId(id);
+                console.log('Historias clinicas del paciente:', fetchedClinicalHistories);
+                setClinicalHistories(fetchedClinicalHistories);
+             
+            } catch (error) {
+                console.error('Error fetching clinical histories:', error);
+            }
+        }
+        loadRecords();
+       
+    }, [id,handleFindClinicalHistoriesByPatientId]);
 
     const handleDetail = (id) => {
         console.log(`Ver detalle de la historia clinica con id: ${id}`);
