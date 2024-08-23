@@ -15,11 +15,13 @@ import { JobProvider } from './contexts/JobContext'
 import { PatientProvider } from './contexts/PatientContext';
 import { DoctorProvider } from './contexts/DoctorContext';
 import { AppointmentProvider } from './contexts/AppointmentContext';
+import { ClinicalHistoryProvider } from './contexts/ClinicalHistoryContext';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
   <React.StrictMode>
+    <ClinicalHistoryProvider>
     <AppointmentProvider>
     <DoctorProvider> {/* Envolver con DoctorProvider */}
       <PatientProvider>
@@ -33,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </PatientProvider>
       </DoctorProvider>
     </AppointmentProvider>
+    </ClinicalHistoryProvider>
   </React.StrictMode>
  
 );

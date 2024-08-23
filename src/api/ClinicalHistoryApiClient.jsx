@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CLINIC_ENDPOINT } from './endpoints';
 
 
-const MedicalRecord = axios.create({
+const ClinicalHistoryApiClient  = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}${CLINIC_ENDPOINT}`,
     headers: {
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ router.get('/patient/:patientId', getClinicalHistoriesByPatientId);
 export const getClinicalHistories = async () => {
     try {
         console.log('Fetching clinical histories...apiClient');
-        const response = await DoctorsApiClient.get('/');
+        const response = await ClinicalHistoryApiClient.get('/');
         return response.data;
     } catch (error) {
         console.error('Error fetching clinical histories:', error);
@@ -34,7 +34,7 @@ export const getClinicalHistories = async () => {
 export const createClinicalHistory = async (clinicalHistoryData) => {
     try {
         console.log('Creating clinical history...apiClient: ', clinicalHistoryData);
-        const response = await DoctorsApiClient.post('/', clinicalHistoryData);
+        const response = await ClinicalHistoryApiClient.post('/', clinicalHistoryData);
         console.log('Clinical history created en api:', response.data);
         return response.data;
     } catch (error) {
@@ -46,7 +46,7 @@ export const createClinicalHistory = async (clinicalHistoryData) => {
 //actualizar una historia clinica por id
 export const updateClinicalHistory = async (clinicalHistoryId, clinicalHistoryData) => {
     try {
-        const response = await DoctorsApiClient.put(`/${clinicalHistoryId}`, clinicalHistoryData);
+        const response = await ClinicalHistoryApiClient.put(`/${clinicalHistoryId}`, clinicalHistoryData);
         return response.data;
     } catch (error) {
         console.error(`Error updating clinical history ${clinicalHistoryId}:`, error);
@@ -58,7 +58,7 @@ export const updateClinicalHistory = async (clinicalHistoryId, clinicalHistoryDa
 
 export const getClinicalHistoryById = async (clinicalHistoryId) => {
     try {
-        const response = await DoctorsApiClient.get(`/${clinicalHistoryId}`);
+        const response = await ClinicalHistoryApiClient.get(`/${clinicalHistoryId}`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching clinical history ${clinicalHistoryId}:`, error);
@@ -69,7 +69,7 @@ export const getClinicalHistoryById = async (clinicalHistoryId) => {
 //borrar una historia clinica por id
 export const deleteClinicalHistory = async (clinicalHistoryId) => {
     try {
-        const response = await DoctorsApiClient.delete(`/${clinicalHistoryId}`);
+        const response = await ClinicalHistoryApiClient.delete(`/${clinicalHistoryId}`);
         return response.data;
     } catch (error) {
         console.error(`Error deleting clinical history ${clinicalHistoryId}:`, error);
@@ -81,7 +81,7 @@ export const deleteClinicalHistory = async (clinicalHistoryId) => {
 
 export const getClinicalHistoriesByPatientId = async (patientId) => {
     try {
-        const response = await DoctorsApiClient.get(`/patient/${patientId}`);
+        const response = await ClinicalHistoryApiClient.get(`/patient/${patientId}`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching clinical histories by patient ${patientId}:`, error);
@@ -90,9 +90,6 @@ export const getClinicalHistoriesByPatientId = async (patientId) => {
 };
 
 //exportar las funciones para ser usadas en otros archivos
-export default MedicalRecord;
-
-
 
 
 
