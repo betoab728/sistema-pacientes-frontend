@@ -82,6 +82,7 @@ export const deleteClinicalHistory = async (clinicalHistoryId) => {
 export const getClinicalHistoriesByPatientId = async (patientId) => {
     try {
         const response = await ClinicalHistoryApiClient.get(`/patient/${patientId}`);
+        console.log('Historias clinicas del paciente en api:', response.data);
         return response.data;
     } catch (error) {
         console.error(`Error fetching clinical histories by patient ${patientId}:`, error);

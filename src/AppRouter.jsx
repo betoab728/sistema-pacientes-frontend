@@ -16,6 +16,8 @@ import EditDoctor from './componentes/doctores/EditDoctor';
 import AddCita from './componentes/citas/AddCita';
 import EditCita from './componentes/citas/EditCita';
 import MedicalRecordDates from './componentes/MedicalRecord/MedicalRecordDates';
+import MedicalRecordDetail from './componentes/MedicalRecord/MedicalRecordDetail';
+import AddMedicalRecord from './componentes/MedicalRecord/AddMedicalRecord';
 
 
 export const AppRouter = () => {
@@ -40,6 +42,8 @@ export const AppRouter = () => {
         <Route path="citas/nuevo" element={<AddCita />} />
         <Route path="citas/editar/:id" element={<EditCita />} />
         <Route path="citas/fechas/:id" element={<MedicalRecordDates />} />
+        <Route path="historiasclinicas/detalle/:id" element={<MedicalRecordDetail />} />
+        <Route path="historiasclinicas/nuevo/:id" element={<AddMedicalRecord />} />
         <Route path="ocupaciones" element={<Ocupaciones />} />
       </Route>
           <Route path="*" element={<Navigate to="/main/dashboard" />} />
