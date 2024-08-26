@@ -1,6 +1,6 @@
 //se implementan los servicios de citas a partir de los metodos de apiClient
 import { getAppointments, createAppointment, getAppointmentById, 
-    updateAppointment, getAppointmentsByDate,updateAppointmentStatus } from '../api/AppointmentApiClient';
+    updateAppointment, getAppointmentsByDate,updateAppointmentStatus,getAppointmentsReport } from '../api/AppointmentApiClient';
 
 const AppointmentService = {
 
@@ -67,7 +67,19 @@ const AppointmentService = {
             console.error('Error in AppointmentService updating appointment status:', error);
             throw error;
         }
+    },
+
+    //obtener un reporte de citas
+    getAppointmentReport: async (from, to) => {
+        try {
+            const report = await getAppointmentsReport(from, to);
+            return report;
+        } catch (error) {
+            console.error('Error in AppointmentService fetching appointments report:', error);
+            throw error;
+        }
     }
+
 
 };
 

@@ -49,7 +49,10 @@ const Pacientes = () => {
         console.log(`Historial del paciente con id: ${id}`)
        // navigate(`/main/pacientes/historial/${id}`)
        // se navega hacia la ventana de fechas de citas del paciente segun la ruta   <Route path="citas/fechas" element={<AppointmentDates />} />
-         navigate(`/main/citas/fechas/${id}`)
+       //nombre completo del paciente
+       const patientName = patients.find(p => p._id === id).name + ' ' + patients.find(p => p._id === id).paternalSurname + ' ' + patients.find(p => p._id === id).maternalSurname;
+         navigate(`/main/citas/fechas/${id}`, { state: { patientName } });
+       
     }
 
     return (

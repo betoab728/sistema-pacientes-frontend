@@ -110,6 +110,7 @@ const Citas = () => {
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
+                        
                         <th className="py-2 px-4 border-b text-left">Fecha</th>
                         <th className="py-2 px-4 border-b text-left">Hora</th>
                         <th className="py-2 px-4 border-b text-left">Paciente</th>

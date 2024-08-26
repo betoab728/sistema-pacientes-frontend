@@ -83,6 +83,19 @@ export const updateAppointmentStatus = async (appointmentId, status) => {
     }
 }
 
+// Función para obtener el reporte de citas en PDF
+export const getAppointmentsReport = async (from, to) => {
+    try {
+        const response = await AppointmentApiClient.get(`/report/${from}/${to}`, {
+            responseType: 'blob', // Importante para manejar el PDF como un archivo binario
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching appointments report from ${from} to ${to}:`, error);
+        throw error;
+    }
+};
+
 // fin de metodos de apiClient
 // exportar 
 export default AppointmentApiClient;
