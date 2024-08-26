@@ -1,43 +1,26 @@
-// Objetivo: Mostrar un listado de citas en un rango de fechas
-
-import React, { useState, useContext } from 'react';
-import { useAppointmentContext } from '../../contexts/AppointmentContext'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useAppointmentContext } from '../../contexts/AppointmentContext';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Worker, Viewer } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const ReportAppointments = () => {
-    const { findAppointmentsByDate } = useAppointmentContext()
-    const [citas, setCitas] = useState([]);
+    const { findAppointmentsByDate, getAppointmentsReport } = useAppointmentContext();
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [error, setError] = useState('');
-    const navigate = useNavigate();
+    const [pdfBlob, setPdfBlob] = useState(null);
 
     const formatToISO = (date) => {
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses son 0-indexados
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
-      };
-
-      //defino este objeto para poder mapear el estado de la cita
-    const statusMap = {
-        scheduled : "Programada",
-        completed  : "Atendida",
-        canceled: "Cancelada"
     };
 
-
-
-    //funcion para imprimir el listado de citas
-    const handleImprimir = () => {
-        console.log('Imprimir citas')
-     //   navigate('/main/citas/imprimir')
-    }
-
-
-    const handleBuscar = async () => {
+      const handleImprimir = async () => {
         if (!startDate || !endDate) {
             setError('Por favor, selecciona ambas fechas.');
             return;
@@ -46,16 +29,16 @@ const ReportAppointments = () => {
         try {
             const formattedFromDate = formatToISO(startDate);
             const formattedToDate = formatToISO(endDate);
-            const response = await findAppointmentsByDate(formattedFromDate, formattedToDate);
-            setCitas(response);
+            const pdfBlob = await getAppointmentsReport(formattedFromDate, formattedToDate);
+            setPdfBlob(pdfBlob);
         } catch (err) {
-            setError('Error al buscar las citas.');
+            setError('Error al generar el reporte.');
         }
-    }
+    };
 
     return (
         <div className='mt-12'>
-            <h1 className="text-2xl font-bold mb-2 text-center">Consulta de Citas</h1>
+            <h1 className="text-2xl font-bold mb-2 text-center">Reporte de Citas</h1>
            
             <div className="mb-4">
                 <div>
@@ -72,7 +55,6 @@ const ReportAppointments = () => {
                 <div>
                     <label className="text-sm">Fecha de Fin</label>
                 </div>
-             
                 <DatePicker
                     selected={endDate}
                     onChange={date => setEndDate(date)}
@@ -83,47 +65,28 @@ const ReportAppointments = () => {
 
             {error && <p className="text-red-500 mb-4">{error}</p>}
 
-            <button onClick={handleBuscar} className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Buscar
-            </button>
             <button onClick={handleImprimir} className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-1">
-                Imprimir
+                Generar Reporte
             </button>
-            <table className="min-w-full bg-white">
-                <thead>
-                    <tr>
-                        <th className="py-2 px-4 border-b text-left">Fecha</th>
-                        <th className="py-2 px-4 border-b text-left">Hora</th>
-                        <th className="py-2 px-4 border-b text-left">Paciente</th>
-                        <th className="py-2 px-4 border-b text-left">Doctor</th>
-                        <th className="py-2 px-4 border-b text-left">Consultorio</th>
-                        <th className="py-2 px-4 border-b text-left">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {citas.length > 0 ? (
-                        citas.map((cita,index) => (
-                            <tr key={index}>
-                                <td className="py-2 px-4 border-b text-left">{new Date(cita.date).toLocaleDateString('es-ES')}</td>
-                                <td className="py-2 px-4 border-b text-left">{cita.hour}</td>
-                                <td className="py-2 px-4 border-b text-left">{cita.patient}</td>
-                                <td className="py-2 px-4 border-b text-left">{cita.doctor}</td>
-                                <td className="py-2 px-4 border-b text-left">{cita.office}</td>
-                                <td className="py-2 px-4 border-b text-left">{statusMap[cita.status]}</td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="6" className="py-2 px-4 border-b text-center">No hay citas en el rango seleccionado</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
 
+            {pdfBlob && (
+                <div className="border border-gray-300">
+                    <div className="scale-70 origin-top-left">
+                        <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
+                            <Viewer fileUrl={URL.createObjectURL(pdfBlob)} />
+                        </Worker>
+                    </div>
+                </div>
+            )}
 
-
+        
+            {pdfBlob && (
+                <a href={URL.createObjectURL(pdfBlob)} download="reporte-citas.pdf" className="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 max-w-44">
+                    Descargar Reporte
+                </a>
+            )}
         </div>
-    )
+    );
 }
 
 export default ReportAppointments;
