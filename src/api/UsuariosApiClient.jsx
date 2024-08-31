@@ -51,10 +51,10 @@ export const loginUser = async (correo, clave) => {
 
          // Construye la URL completa para la petición
          const url = `${UsuariosApiClient.defaults.baseURL}/login`;
-        console.log('Request URL:', url);
+        console.log('url del backend : ', url);
  
          //  el cuerpo de la solicitud
-         const requestBody = { correo, clave };
+        // const requestBody = { correo, clave };
       //   console.log('Request Body:', requestBody);
  
 
