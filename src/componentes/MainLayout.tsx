@@ -95,13 +95,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
+    backgroundColor: '#1E3A8A',
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
+      backgroundColor: '#1E3A8A'
     }),
     ...(!open && {
       ...closedMixin(theme),
       '& .MuiDrawer-paper': closedMixin(theme),
+      backgroundColor: '#1E3A8A', 
     }),
   }),
 );
@@ -182,6 +185,7 @@ export default function MainLayout() {
           width:'100vw', // Asegura que el contenido ocupe todo el ancho disponible menos el ancho del Drawer
           height: 'calc(100vh - 64px)', // Ajusta la altura para no solaparse con el AppBar (64px es la altura del AppBar por defecto)
           overflow: 'auto',
+        
         }}
       >
         <DrawerHeader />

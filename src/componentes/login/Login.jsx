@@ -68,10 +68,13 @@ export const Login = () => {
         >
           Ingresar
         </button>
+        {/*
         <Link to="/nuevo-usuario" className="text-sm text-blue-400 mr-3">
           Soy nuevo usuario
-        </Link>
-        <a href="#" className="text-sm text-blue-400">Olvidé mi contraseña</a>
+        </Link> 
+
+        <a href="#" className="text-sm text-blue-400">Olvidé mi contraseña</a>  
+      */}
         {message && <p className="text-red-500 mt-3">{message}</p>}
       </div>
     </div>
