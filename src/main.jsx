@@ -16,26 +16,28 @@ import { PatientProvider } from './contexts/PatientContext';
 import { DoctorProvider } from './contexts/DoctorContext';
 import { AppointmentProvider } from './contexts/AppointmentContext';
 import { ClinicalHistoryProvider } from './contexts/ClinicalHistoryContext';
-
+import { DashboardProvider } from './contexts/DashboardContext' // Importa el DashboardProvider
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
   <React.StrictMode>
-    <ClinicalHistoryProvider>
-    <AppointmentProvider>
-    <DoctorProvider> {/* Envolver con DoctorProvider */}
-      <PatientProvider>
-      <UserProvider>
-      <JobProvider> {/* Envolver con JobProvider */}
-          <BrowserRouter>
-            <AppRouter />
-          </BrowserRouter>
-        </JobProvider>
-      </UserProvider>
-      </PatientProvider>
-      </DoctorProvider>
-    </AppointmentProvider>
-    </ClinicalHistoryProvider>
+     <DashboardProvider>
+      <ClinicalHistoryProvider>
+      <AppointmentProvider>
+      <DoctorProvider> {/* Envolver con DoctorProvider */}
+        <PatientProvider>
+        <UserProvider>
+        <JobProvider> {/* Envolver con JobProvider */}
+            <BrowserRouter>
+              <AppRouter />
+            </BrowserRouter>
+          </JobProvider>
+        </UserProvider>
+        </PatientProvider>
+        </DoctorProvider>
+      </AppointmentProvider>
+      </ClinicalHistoryProvider>
+    </DashboardProvider>
   </React.StrictMode>
  
 );

@@ -1,65 +1,102 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDashboardContext } from '../../contexts/DashboardContext';
+import { Line } from 'react-chartjs-2';
+import 'chart.js/auto'; // Importación de Chart.js para el gráfico
+//uso de css
+ import './Dashboard.css';
 
-// Datos de ejemplo para las tarjetas
-const resumen = [
-  { title: 'Pacientes', count: 120, icon: '👥' },
-  { title: 'Citas Programadas', count: 35, icon: '📅' },
-  { title: 'Doctores', count: 10, icon: '👨‍⚕️' },
-  { title: 'Ocupaciones', count: 8, icon: '💼' },
-];
-
-// Datos de ejemplo para la tabla de citas
-const citas = [
-  { id: 1, paciente: 'Juan Pérez', doctor: 'Dr. Gómez', fecha: '2024-08-10', hora: '10:00 AM' },
-  { id: 2, paciente: 'María López', doctor: 'Dr. Fernández', fecha: '2024-08-12', hora: '11:00 AM' },
-  { id: 3, paciente: 'Carlos Ruiz', doctor: 'Dr. Martínez', fecha: '2024-08-15', hora: '02:00 PM' },
-  { id: 4, paciente: 'Ana García', doctor: 'Dr. Morales', fecha: '2024-08-18', hora: '03:00 PM' },
-];
 
 export const Dashboard = () => {
+  const { dashboardData, fetchDashboardData } = useDashboardContext();
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
+
+  // Datos de ejemplo de dashboard extraídos del contexto
+  const { totalPatients, totalAppointments, pendingAppointments, totalDoctors, lastAppointments, appointmentsByMonth } = dashboardData;
+
+  // Configuración de datos para el gráfico
+  const chartData = {
+    labels: appointmentsByMonth?.map(item => item.month) || [],
+    datasets: [
+      {
+        label: 'Total Citas',
+        data: appointmentsByMonth?.map(item => item.totalAppointments) || [],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+      {
+        label: 'Citas Completadas',
+        data: appointmentsByMonth?.map(item => item.completedAppointments) || [],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      },
+      {
+        label: 'Citas Pendientes',
+        data: appointmentsByMonth?.map(item => item.pendingAppointments) || [],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ],
+  };
+
   return (
     <div className="p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
-      
+
       {/* Tarjetas de Resumen */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        {resumen.map((item) => (
-          <div key={item.title} className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold">{item.title}</h2>
-              <p className="text-2xl font-bold">{item.count}</p>
-            </div>
-            <div className="text-3xl">{item.icon}</div>
-          </div>
-        ))}
+        <SummaryCard title="Total Pacientes" count={totalPatients} icon="👥" />
+        <SummaryCard title="Total Citas" count={totalAppointments} icon="📅" />
+        <SummaryCard title="Citas Pendientes" count={pendingAppointments} icon="⏳" />
+        <SummaryCard title="Doctores" count={totalDoctors} icon="👨‍⚕️" />
       </div>
 
       {/* Tabla de Citas */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mb-6">
         <h2 className="text-xl font-semibold mb-4">Últimas Citas</h2>
         <table className="min-w-full divide-y divide-gray-300 bg-white shadow-md rounded-lg">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paciente</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hora</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {citas.map((cita) => (
+            {lastAppointments?.slice(0, 10).map((cita) => (
               <tr key={cita.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{cita.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.paciente}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.doctor}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.fecha}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.hora}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{cita.patientName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.doctorName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date(cita.date).toLocaleDateString()}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.hour}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cita.status}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Gráfico de Citas por Mes */}
+        <div className="w-full h-full max-w-4xl mx-auto p-4"> {/* Contenedor principal con ancho máximo */}
+          <div className="aspect-w-16 aspect-h-9 w-full h-full"> {/* Contenedor responsivo */}
+            <Line data={chartData} />
+          </div>
+        </div>
     </div>
   );
 };
+
+// Componente Tarjeta de Resumen
+const SummaryCard = ({ title, count, icon }) => (
+  <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+    <div>
+      <h2 className="text-lg font-semibold">{title}</h2>
+      <p className="text-2xl font-bold">{count}</p>
+    </div>
+    <div className="text-3xl">{icon}</div>
+  </div>
+);

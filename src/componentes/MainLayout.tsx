@@ -31,9 +31,6 @@ const menuItems = [
   //agregar opcion para reportes con este icono fa-solid fa-clipboard-list
   { text: 'Reportes', icon: <FontAwesomeIcon icon={ faClipboardList } /> , path: '/main/reportes/citas' }
 
-
-
-  
 ];
 
 const drawerWidth = 240;
