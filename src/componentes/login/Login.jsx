@@ -34,7 +34,7 @@ export const Login = () => {
     
     <div
       className="min-h-screen flex items-center justify-center 
-      bg-cover bg-center bg-no-repeat w-full max-w-md sm:max-w-sm 
+      bg-cover bg-center bg-no-repeat min-w-full max-w-md sm:max-w-sm 
       md:max-w-lg mx-auto p-4"
       style={{ backgroundImage: `url(${fondoLogin})` }}
     >
