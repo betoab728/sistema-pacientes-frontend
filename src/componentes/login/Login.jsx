@@ -75,7 +75,7 @@ export const Login = () => {
         
         <a href="#" className="text-sm text-blue-400">Olvidé mi contraseña</a>  
       */}
-      <p className='text-xs text-gray-600'>Prueba: postman@gmail.com - clave: 12345</p>
+      <p className='text-xs text-gray-600'>Demo: postman@gmail.com - clave: 12345</p>
         {message && <p className="text-red-500 mt-3">{message}</p>}
       </div>
     </div>
