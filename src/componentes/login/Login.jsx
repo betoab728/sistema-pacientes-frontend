@@ -30,10 +30,13 @@ export const Login = () => {
   };
 
   return (
+
+    
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat contenido"
       style={{ backgroundImage: `url(${fondoLogin})` }}
     >
+      
       <div className="bg-white py-5 px-8 border-t-4 border-blue-700 rounded-md shadow-lg">
         <h2 className="text-3xl text-gray-400 mb-3">Iniciar sesión</h2>
 

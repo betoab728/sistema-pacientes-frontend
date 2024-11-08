@@ -1,0 +1,10 @@
+/* regla para reducir el acho del login en pantallas movil */
+@media screen and (max-width: 768px) {
+
+    .contenido {
+        width: 90%;
+
+    }
+
+    
+}
