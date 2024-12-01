@@ -41,6 +41,19 @@ export const Dashboard = () => {
     ],
   };
 
+  //mapear el campo status de la cita para mostrarlo en la tabla en español 'scheduled', 'completed', 'canceled'
+
+  lastAppointments?.map((cita) => {
+    if (cita.status === 'scheduled') {
+      cita.status = 'Agendada';
+    } else if (cita.status === 'completed') {
+      cita.status = 'Completada';
+    } else if (cita.status === 'canceled') {
+      cita.status = 'Cancelada';
+    }
+    return cita;
+  });
+
   return (
     <div className="p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
