@@ -132,15 +132,19 @@ const Citas = () => {
                             <td className="py-2 px-4 border-b text-left"> {statusMap[cita.status]} </td>
                         
                             <td className="py-2 px-4 border-b">
-                                <button onClick={() => handleModificar(cita._id)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded m-1">
+
+                            <div className="flex space-x-2">
+
+                                <button onClick={() => handleModificar(cita._id)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                     <FontAwesomeIcon icon={faEdit} />
                                 </button>
-                                <button onClick={() => handleEliminar(doctor._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-1">
+                                <button onClick={() => handleEliminar(cita._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                     <FontAwesomeIcon icon={faTrash} />
                                 </button>
-                                <button onClick={() => handleActualizar(cita._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-1">
+                                <button onClick={() => handleActualizar(cita._id)} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                     <FontAwesomeIcon icon={faCheck} />
                                 </button>
+                            </div>
                             </td>
                           
                         </tr>

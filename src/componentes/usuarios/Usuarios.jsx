@@ -48,7 +48,7 @@ const Usuarios = () => {
       <table className="min-w-full bg-white">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-left">_id</th>
+           
             <th className="py-2 px-4 border-b text-left">Nombre</th>
             <th className="py-2 px-4 border-b text-left">Correo</th>
             <th className="py-2 px-4 border-b text-left">FechaRegistro</th>
@@ -59,20 +59,25 @@ const Usuarios = () => {
         <tbody>
           {users.map((usuario) => (
             <tr key={usuario._id}>
-              <td className="py-2 px-4 border-b text-left">{usuario._id}</td>
+             
               <td className="py-2 px-4 border-b text-left">{usuario.nombre}</td>
               <td className="py-2 px-4 border-b text-left">{usuario.correo}</td>
               <td className="py-2 px-4 border-b text-left">{new Date(usuario.fechaRegistro).toLocaleString()}</td>
               <td className="py-2 px-4 border-b text-left">{usuario.activo ? "Activo" : "Inactivo"}</td>
               <td className="py-2 px-4 border-b text-left">
-                <button onClick={() => handleModificar(usuario._id)}
+              <div className="flex space-x-2">
+
+              <button onClick={() => handleModificar(usuario._id)}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center m-1">
                    <FontAwesomeIcon icon={faEdit} /> 
                 </button>
-                <button onClick={() => handleEliminar(doctor._id)} 
+                <button onClick={() => handleEliminar(usuario._id)} 
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
+
+              </div>
+               
               </td>
             </tr>
           ))}

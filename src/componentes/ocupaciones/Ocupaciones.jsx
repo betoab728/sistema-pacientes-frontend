@@ -61,6 +61,11 @@ const Ocupaciones = () => {
       allowOutsideClick: () => !Swal.isLoading()
     });
   };
+
+  const handleEliminar = async (id) => {
+    console.log(`Eliminar ocupacion con id: ${id}`);
+
+  };
   const  handleModificar =async (id) => {
     console.log(`Modificar ocupacion con id: ${id}`);
     //primero busca la ocupacion o job por id y luego se modifica
@@ -129,14 +134,17 @@ const Ocupaciones = () => {
               <td className="py-2 px-4 border-b text-left">{ocupacion._id}</td>
               <td className="py-2 px-4 border-b text-left">{ocupacion.name}</td>
               <td className="py-2 px-4 border-b text-left">
-                <button onClick={() => handleModificar(ocupacion._id)} 
-                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center m-1">
-                  <FontAwesomeIcon icon={faEdit} /> 
-                </button>
-                <button onClick={() => handleEliminar(doctor._id)} 
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
+              <div className="flex space-x-2">
+                  <button onClick={() => handleModificar(ocupacion._id)} 
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                    <FontAwesomeIcon icon={faEdit} /> 
+                  </button>
+                  <button onClick={() => handleEliminar(ocupacion._id)} 
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+              </div>
+
               </td>
             </tr>
           ))}

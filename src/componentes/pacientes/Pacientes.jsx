@@ -68,8 +68,6 @@ const Pacientes = () => {
                                       
                         <th className="py-2 px-4 border-b text-left">DNI</th>
                         <th className="py-2 px-4 border-b text-left">Nombre</th>
-                        <th className="py-2 px-4 border-b text-left">A.Paterno</th>
-                        <th className="py-2 px-4 border-b text-left">A.Materno</th>
                         <th className="py-2 px-4 border-b text-left">Genero</th>
                         <th className="py-2 px-4 border-b text-left">Fecha de Nac.</th>
                         <th className="py-2 px-4 border-b text-left">Correo</th>
@@ -83,9 +81,7 @@ const Pacientes = () => {
                         <tr key={paciente._id}>
                           
                             <td className="py-2 px-4 border-b text-left">{paciente.dni}</td>
-                            <td className="py-2 px-4 border-b text-left">{paciente.name}</td>
-                            <td className="py-2 px-4 border-b text-left">{paciente.paternalSurname}</td>
-                            <td className="py-2 px-4 border-b text-left">{paciente.maternalSurname}</td>
+                            <td className="py-2 px-4 border-b text-left">{paciente.name} {paciente.paternalSurname} {paciente.maternalSurname}</td>
                             <td className="py-2 px-4 border-b text-left">{genderMap[paciente.gender]}</td>
                             <td className="py-2 px-4 border-b text-left">{new Date(paciente.dateBirth).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                             <td className="py-2 px-4 border-b text-left">{paciente.email}</td>
@@ -97,12 +93,20 @@ const Pacientes = () => {
                                 </button>
                             </td>
                             <td className="py-2 px-4 border-b text-left">
-                                <button onClick={() => handleModificar(paciente._id)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded m-1">
+                            <div className="flex space-x-2">
+
+                                 <button onClick={() => handleModificar(paciente._id)} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                     <FontAwesomeIcon icon={faEdit} />
                                 </button>
-                                <button onClick={() => handleEliminar(doctor._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                <button onClick={() => handleEliminar(paciente._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                     <FontAwesomeIcon icon={faTrash} />
                                 </button>
+
+                            </div>
+
+                            </td>
+                            <td>
+                                
                             </td>
                         </tr>
                     ))}
